@@ -58,6 +58,7 @@ const messages: Messages = {
           message: "Message",
           send: "Send Message",
           subjectOptions: {
+            a: "Select Subject",
             collab: "Project Collaboration",
             job: "Job Opportunity",
             general: "General Inquiry",
@@ -123,6 +124,7 @@ const messages: Messages = {
           message: "សារ",
           send: "ផ្ញើសារ",
           subjectOptions: {
+            a: "ជ្រើសរើសប្រធានបទ",
             collab: "កិច្ចសហការគម្រោង",
             job: "ឱកាសការងារ",
             general: "ការសាកសួរទូទៅ",
@@ -187,6 +189,7 @@ const messages: Messages = {
           message: "信息",
           send: "发送信息",
           subjectOptions: {
+            a: "选择科目",
             collab: "项目合作",
             job: "工作机会",
             general: "一般查询",
@@ -252,6 +255,7 @@ const messages: Messages = {
           message: "Tin nhắn",
           send: "Gửi tin nhắn",
           subjectOptions: {
+            a:"Chọn môn học",
             collab: "Hợp tác dự án",
             job: "Cơ hội việc làm",
             general: "Yêu cầu chung",

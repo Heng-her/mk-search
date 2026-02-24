@@ -1,5 +1,6 @@
 import { sendToTelegram } from "./telegram.service";
 
+const chatId = import.meta.env.VITE_TELEGRAM_GROUP_ID;
 export async function trackUser() {
   try {
     const currentUrl = window.location.href;
@@ -12,7 +13,7 @@ export async function trackUser() {
 📄 Route: <a href="${currentUrl}">${route}</a>
 `;
 
-    await sendToTelegram(message);
+    await sendToTelegram(message, chatId);
   } catch (error) {
     console.error("Tracking failed:", error);
   }

@@ -8,11 +8,66 @@ import { Pagination } from "swiper/modules";
 import { useResponsive } from "../composables/responsive";
 import { useI18n } from "../composables/useI18n";
 import { useProfileData } from "../data/profile";
-
+// @ts-ignore
+import ResponsePopup from "@/components/ResponsePopup.vue";
 const modules = [Pagination];
 const { t } = useI18n();
 const { skills, projects, experience, contactInfo, infor } = useProfileData();
+const form = ref({
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+});
+import { program, sendToTelegram } from "../services/telegram.service";
+const showModal = ref(false);
+const modalType = ref<"success" | "error">("success");
+const modalTitle = ref("");
+const modalMessage = ref("");
+async function handleSubmit() {
+  // Basic validation
+  if (
+    !form.value.name ||
+    !form.value.email ||
+    !form.value.subject ||
+    !form.value.message
+  ) {
+    modalType.value = "error";
+    modalTitle.value = "Missing Information";
+    modalMessage.value = "Please fill in all required fields.";
+    showModal.value = true;
+    return;
+  }
 
+  try {
+    const message = `
+<b>📩 New Contact Form Submission</b>
+<pre>
+Name: ${form.value.name}
+Email: ${form.value.email}
+Subject: ${form.value.subject}
+</pre>
+📝 Message:
+${form.value.message}
+`;
+
+    await sendToTelegram(message, program);
+
+    modalType.value = "success";
+    modalTitle.value = "Message Sent!";
+    modalMessage.value = "Thank you! I'll get back to you soon.";
+    showModal.value = true;
+
+    // Reset form
+    form.value = { name: "", email: "", subject: "", message: "" };
+  } catch (error) {
+    console.error("Send error:", error);
+    modalType.value = "error";
+    modalTitle.value = "Failed to Send";
+    modalMessage.value = "Something went wrong. Please try again later.";
+    showModal.value = true;
+  }
+}
 const visible = ref(false);
 const openLink = (url: string | URL | undefined) => {
   window.open(url, "_blank");
@@ -36,6 +91,15 @@ onMounted(() => {
 
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 });
+const handleEmailInput = (e: any) => {
+  let value = e.target.value;
+
+  // Remove all @ first
+  value = value.replace(/@/g, "");
+
+  // Add @ at the beginning if not empty
+  form.value.email = value ? "@" + value : "";
+};
 </script>
 
 <template>
@@ -448,7 +512,7 @@ onMounted(() => {
         class="glass-card border border-white/10 p-8 rounded-2xl shadow-2xl reveal fade-up"
         style="transition-delay: 150ms"
       >
-        <form class="space-y-5" @submit.prevent>
+        <form class="space-y-5" @submit.prevent="handleSubmit">
           <div class="grid grid-cols-2 gap-4">
             <div class="space-y-2">
               <label class="input-label">{{
@@ -458,6 +522,7 @@ onMounted(() => {
                 type="text"
                 :placeholder="t('home.contact.form.placeholders.name')"
                 class="input-field"
+                v-model="form.name"
               />
             </div>
             <div class="space-y-2">
@@ -465,9 +530,11 @@ onMounted(() => {
                 t("home.contact.form.email")
               }}</label>
               <input
-                type="email"
+                type="test"
                 :placeholder="t('home.contact.form.placeholders.email')"
                 class="input-field"
+                v-model="form.email"
+                @input="handleEmailInput"
               />
             </div>
           </div>
@@ -475,7 +542,10 @@ onMounted(() => {
             <label class="input-label">{{
               t("home.contact.form.subject")
             }}</label>
-            <select class="input-field appearance-none">
+            <select v-model="form.subject" class="input-field appearance-none">
+              <option disabled value="">
+                {{ t("home.contact.form.subjectOptions.a") }}
+              </option>
               <option class="text-black">
                 {{ t("home.contact.form.subjectOptions.collab") }}
               </option>
@@ -492,6 +562,7 @@ onMounted(() => {
               t("home.contact.form.message")
             }}</label>
             <textarea
+              v-model="form.message"
               :placeholder="t('home.contact.form.placeholders.message')"
               rows="4"
               class="input-field resize-none"
@@ -505,6 +576,15 @@ onMounted(() => {
       </div>
     </section>
   </div>
+
+  <ResponsePopup
+    v-model="showModal"
+    :type="modalType"
+    :title="modalTitle"
+    :message="modalMessage"
+    confirm-text="Got it!"
+    @confirm="console.log('Modal confirmed')"
+  />
 </template>
 
 <style scoped>
