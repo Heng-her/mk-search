@@ -21,7 +21,7 @@ const staticData = {
   contactInfo: [
     {
       icon: "fa-solid fa-envelope",
-      value: "hengnun68@gmail.com",
+      value: "bunhengher@gmail.com",
       label: "",
     },
     {
