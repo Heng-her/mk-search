@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 import { useI18n } from "../composables/useI18n";
+import { useTracker } from "../composables/useTracker";
 
+useTracker();
 // I18n setup
 const { t, setLocale, currentLocaleLabel, availableLocales } = useI18n();
-
 const scrollProgress = ref(0);
 const scrollY = ref(0);
 const isMenuOpen = ref(false);
@@ -182,7 +183,7 @@ onBeforeUnmount(() => {
       </div>
     </Transition>
 
-    <main class="pt-32 pb-16 px-4 max-w-6xl mx-auto">
+    <main class="pt-5 lg:pt-10 pb-14 px-4 max-w-6xl mx-auto">
       <router-view />
     </main>
   </div>
