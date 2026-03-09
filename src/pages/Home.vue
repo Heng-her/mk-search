@@ -73,12 +73,16 @@ const openLink = (url: string | URL | undefined) => {
   window.open(url, "_blank");
 };
 const { isMobile } = useResponsive();
+const { currentLocale } = useI18n();
 
-onMounted(() => {
-  setTimeout(() => (visible.value = true), 100);
+// 🔹 Intersection Observer logic
+let observer: IntersectionObserver | null = null;
 
-  // Intersection Observer for scroll-triggered animations
-  const observer = new IntersectionObserver(
+const initObserver = () => {
+  // Disconnect existing observer if any
+  if (observer) observer.disconnect();
+
+  observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -89,8 +93,21 @@ onMounted(() => {
     { threshold: 0.12 },
   );
 
-  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  document.querySelectorAll(".reveal").forEach((el) => observer?.observe(el));
+};
+
+onMounted(() => {
+  setTimeout(() => (visible.value = true), 100);
+  initObserver();
 });
+
+// 🔹 Re-run observer when locale changes to handle re-rendered elements
+import { watch, nextTick } from "vue";
+watch(currentLocale, async () => {
+  await nextTick();
+  initObserver();
+});
+
 const handleEmailInput = (e: any) => {
   let value = e.target.value;
 
@@ -262,7 +279,7 @@ const handleEmailInput = (e: any) => {
       >
         <div
           v-for="(skill, i) in skills"
-          :key="skill.title"
+          :key="i"
           class="skill-card reveal fade-up glass-card border border-white/10 p-5 sm:p-6 rounded-2xl space-y-4"
           :style="{ transitionDelay: `${i * 70}ms` }"
         >
@@ -309,7 +326,7 @@ const handleEmailInput = (e: any) => {
         :space-between="20"
         :pagination="{ clickable: true }"
       >
-        <SwiperSlide v-for="project in projects" :key="project.title">
+        <SwiperSlide v-for="(project, i) in projects" :key="i">
           <div
             class="project-card glass-card border border-white/10 rounded-2xl overflow-hidden flex flex-col"
           >
@@ -356,7 +373,7 @@ const handleEmailInput = (e: any) => {
       <div v-if="!isMobile" class="md:grid md:grid-cols-2 gap-8">
         <div
           v-for="(project, i) in projects"
-          :key="project.title"
+          :key="i"
           class="project-card reveal fade-up glass-card border border-white/10 rounded-2xl overflow-hidden flex flex-col"
           :style="{ transitionDelay: `${i * 100}ms` }"
         >
@@ -462,7 +479,7 @@ const handleEmailInput = (e: any) => {
         <div class="space-y-4">
           <div
             v-for="(info, i) in contactInfo"
-            :key="info.label"
+            :key="i"
             class="contact-info-item reveal fade-left"
             :style="{ transitionDelay: `${i * 80}ms` }"
           >
@@ -530,7 +547,7 @@ const handleEmailInput = (e: any) => {
                 t("home.contact.form.email")
               }}</label>
               <input
-                type="test"
+                type="text"
                 :placeholder="t('home.contact.form.placeholders.email')"
                 class="input-field"
                 v-model="form.email"

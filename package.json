@@ -15,6 +15,7 @@
     "@tailwindcss/vite": "^4.2.0",
     "swiper": "^12.1.2",
     "tailwindcss": "^4.2.0",
+    "ua-parser-js": "^2.0.9",
     "vue": "^3.5.25",
     "vue-router": "^5.0.3"
   },
