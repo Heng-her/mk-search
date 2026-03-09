@@ -338,7 +338,7 @@ const handleEmailInput = (e: any) => {
               <div class="flex gap-3 pt-2">
                 <button
                   @click="openLink(project.link)"
-                  class="flex-1 btn-primary text-xs"
+                  class="flex-1 btn-primary text-xs py-2"
                   :disabled="project.disabled"
                 >
                   {{ t("home.projects.demo") }}
