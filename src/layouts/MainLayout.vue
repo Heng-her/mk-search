@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 import { useI18n } from "../composables/useI18n";
-import { useTracker } from "../composables/useTracker";
-
-useTracker();
 // I18n setup
 const { t, setLocale, currentLocaleLabel, availableLocales } = useI18n();
 const scrollProgress = ref(0);
