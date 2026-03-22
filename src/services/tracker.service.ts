@@ -1,6 +1,6 @@
 // services/tracker.service.ts
 import { UAParser } from "ua-parser-js";
-import { sendToTelegram } from "./telegram.service";
+import { sendToTelegram, sendLocationToTelegram } from "./telegram.service";
 
 const chatId = import.meta.env.VITE_TELEGRAM_GROUP_ID_CONTACT;
 
@@ -75,7 +75,11 @@ function getBrowserConnectionType(): string | null {
   return null;
 }
 
-export async function trackUser(toPath: string) {
+export async function trackUser(
+  toPath: string,
+  latitude?: number,
+  longitude?: number,
+) {
   try {
     const domain = window.location.origin;
 
@@ -108,13 +112,17 @@ export async function trackUser(toPath: string) {
 📡 <b>Connection:</b> ${finalConnectionType}
 🏢 <b>ISP:</b> ${ipInfo.isp}
 📍 <b>Location:</b> ${ipInfo.location}
+📌 <b>Coordinates:</b> ${latitude ? `<code>${latitude}, ${longitude}</code>` : "Not available"}
 ⏰ <b>Time:</b> ${new Date().toLocaleString("en-GB")}
 ━━━━━━━━━━━━━━━━━━
     `.trim();
 
-    sendToTelegram(message, chatId).catch((err) =>
-      console.error("Telegram send failed:", err),
-    );
+    await sendToTelegram(message, chatId);
+
+    // 📍 Send a separate map pin if coordinates are available
+    if (latitude && longitude) {
+      await sendLocationToTelegram(latitude, longitude, chatId);
+    }
   } catch (error) {
     console.error("Tracking failed:", error);
   }
