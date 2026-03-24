@@ -10,6 +10,8 @@ import { useI18n } from "../composables/useI18n";
 import { useProfileData } from "../data/profile";
 // @ts-ignore
 import ResponsePopup from "@/components/ResponsePopup.vue";
+// @ts-ignore
+import ImagePopup from "@/components/ImagePopup.vue";
 const modules = [Pagination];
 const { t } = useI18n();
 const { skills, projects, experience, contactInfo, infor } = useProfileData();
@@ -21,6 +23,7 @@ const form = ref({
 });
 import { program, sendToTelegram } from "../services/telegram.service";
 const showModal = ref(false);
+const showImageModal = ref(false);
 const modalType = ref<"success" | "error">("success");
 const modalTitle = ref("");
 const modalMessage = ref("");
@@ -98,6 +101,7 @@ const initObserver = () => {
 
 onMounted(() => {
   setTimeout(() => (visible.value = true), 100);
+  setTimeout(() => (showImageModal.value = true), 1000); // Show popup after 1 second
   initObserver();
 });
 
@@ -601,6 +605,12 @@ const handleEmailInput = (e: any) => {
     :message="modalMessage"
     confirm-text="Got it!"
     @confirm="console.log('Modal confirmed')"
+  />
+
+  <ImagePopup
+    v-model="showImageModal"
+    image-src="/bunheng-work.jpg"
+    title="Think Before choosing a developer Skill."
   />
 </template>
 
