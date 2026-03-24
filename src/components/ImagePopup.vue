@@ -46,7 +46,7 @@ onUnmounted(() => {
     >
       <div
         v-if="isOpen"
-        class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+        class="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
         @click.self="closeModal"
       >
         <Transition
@@ -69,7 +69,7 @@ onUnmounted(() => {
             </button>
 
             <!-- Image Container -->
-            <div class="aspect-[3/4] sm:aspect-auto sm:max-h-[80vh] overflow-hidden">
+            <div class="aspect-3/4 sm:aspect-auto sm:max-h-[80vh] overflow-hidden">
               <img
                 :src="imageSrc"
                 :alt="title || 'Popup Image'"

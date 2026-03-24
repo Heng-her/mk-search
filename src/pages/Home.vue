@@ -155,7 +155,7 @@ const handleEmailInput = (e: any) => {
           <div class="avatar-ring" />
           <img
             src="/profile.jpg"
-            alt="Alex"
+            alt="Her Bunheng - Full Stack Developer Profile"
             class="relative w-32 h-32 sm:w-44 sm:h-44 rounded-full object-cover border-2 border-white/20"
           />
           <!-- Status dot -->
