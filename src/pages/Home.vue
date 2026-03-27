@@ -72,6 +72,9 @@ ${form.value.message}
   }
 }
 const visible = ref(false);
+const bottomSentinel = ref<HTMLElement | null>(null);
+const hasShownModal = ref(false);
+
 const openLink = (url: string | URL | undefined) => {
   window.open(url, "_blank");
 };
@@ -101,7 +104,20 @@ const initObserver = () => {
 
 onMounted(() => {
   setTimeout(() => (visible.value = true), 100);
-  setTimeout(() => (showImageModal.value = true), 1000); // Show popup after 1 second
+  
+  // Bottom scroll observer
+  const bottomObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !hasShownModal.value) {
+      showImageModal.value = true;
+      hasShownModal.value = true;
+      bottomObserver.disconnect();
+    }
+  }, { threshold: 0.1 });
+
+  if (bottomSentinel.value) {
+    bottomObserver.observe(bottomSentinel.value);
+  }
+
   initObserver();
 });
 
@@ -596,6 +612,9 @@ const handleEmailInput = (e: any) => {
         </form>
       </div>
     </section>
+
+    <!-- Sentinel for scroll-to-bottom detection -->
+    <div ref="bottomSentinel" class="h-4 w-full" />
   </div>
 
   <ResponsePopup
