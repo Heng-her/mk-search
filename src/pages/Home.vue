@@ -107,7 +107,7 @@ onMounted(() => {
   
   // Bottom scroll observer
   const bottomObserver = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && !hasShownModal.value) {
+    if (entries[0]?.isIntersecting && !hasShownModal.value) {
       showImageModal.value = true;
       hasShownModal.value = true;
       bottomObserver.disconnect();
