@@ -11,6 +11,6 @@ export default defineConfig({
     },
   },
   server:{
-    allowedHosts: ["gluily-majuscular-sammie.ngrok-free.dev"]
+    allowedHosts: ["command-trivia-ppc-knee.trycloudflare.com"]
   }
 })
