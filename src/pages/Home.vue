@@ -15,11 +15,30 @@ import ImagePopup from "@/components/ImagePopup.vue";
 const modules = [Pagination];
 const { t } = useI18n();
 const { skills, projects, experience, contactInfo, infor } = useProfileData();
+import { useHead } from "@vueuse/head";
 const form = ref({
   name: "",
   email: "",
   subject: "",
   message: "",
+});
+
+useHead({
+  title: "Home | HENG CRYPTEN",
+  meta: [
+    {
+      name: "description",
+      content: "Welcome to HENG CRYPTEN portfolio website",
+    },
+    {
+      property: "og:title",
+      content: "HENG CRYPTEN",
+    },
+    {
+      property: "og:description",
+      content: "Crypto portfolio and projects",
+    },
+  ],
 });
 import { program, sendToTelegram } from "../services/telegram.service";
 const showModal = ref(false);
@@ -104,15 +123,18 @@ const initObserver = () => {
 
 onMounted(() => {
   setTimeout(() => (visible.value = true), 100);
-  
+
   // Bottom scroll observer
-  const bottomObserver = new IntersectionObserver((entries) => {
-    if (entries[0]?.isIntersecting && !hasShownModal.value) {
-      showImageModal.value = true;
-      hasShownModal.value = true;
-      bottomObserver.disconnect();
-    }
-  }, { threshold: 0.1 });
+  const bottomObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries[0]?.isIntersecting && !hasShownModal.value) {
+        showImageModal.value = true;
+        hasShownModal.value = true;
+        bottomObserver.disconnect();
+      }
+    },
+    { threshold: 0.1 },
+  );
 
   if (bottomSentinel.value) {
     bottomObserver.observe(bottomSentinel.value);
