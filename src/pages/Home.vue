@@ -24,21 +24,69 @@ const form = ref({
 });
 
 useHead({
-  title: "Home | HENG CRYPTEN",
+  title: "Her Bunheng | Full Stack Developer in Siem Reap, Cambodia",
   meta: [
     {
       name: "description",
-      content: "Welcome to HENG CRYPTEN portfolio website",
+      content: "Portfolio of Her Bunheng, a Full Stack Developer specializing in Vue.js, React, and Mobile Apps based in Siem Reap, Cambodia. Explore my projects and skills.",
     },
     {
       property: "og:title",
-      content: "HENG CRYPTEN",
+      content: "Her Bunheng | Full Stack Developer",
     },
     {
       property: "og:description",
-      content: "Crypto portfolio and projects",
+      content: "Explore the portfolio of Her Bunheng, a developer in Siem Reap expert in Vue, React, and modern web tech.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.mk-search.xyz/profile.jpg",
+    },
+    {
+      property: "og:type",
+      content: "website",
     },
   ],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Her Bunheng",
+        "url": "https://www.mk-search.xyz",
+        "jobTitle": "Full Stack Developer",
+        "knowsAbout": ["Vue.js", "React", "TypeScript", "Node.js", "Mobile App Development"],
+        "description": "Full Stack Developer based in Siem Reap, Cambodia specializing in modern web and mobile applications.",
+        "image": "https://www.mk-search.xyz/profile.jpg",
+        "sameAs": [
+          "https://www.github.com/Heng-her",
+          "https://www.linkedin.com/in/bun-heng-107340361",
+          "https://www.instagram.com/caterfly.buy"
+        ]
+      })
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": projects.value.map((project: any, index: number) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": project.title,
+            "applicationCategory": "WebApplication",
+            "operatingSystem": "Web",
+            "description": project.desc,
+            "image": `https://www.mk-search.xyz${project.img}`,
+            "url": project.link || "https://www.mk-search.xyz"
+          }
+        }))
+      })
+    }
+  ]
 });
 import { program, sendToTelegram } from "../services/telegram.service";
 const showModal = ref(false);
@@ -276,7 +324,7 @@ const handleEmailInput = (e: any) => {
         >
           <img
             src="/48hr.jpg"
-            alt="Alex portrait"
+            alt="Her Bunheng Portrait - Software Developer"
             class="w-full h-full object-cover img-zoom"
           />
           <!-- Overlay shimmer -->
@@ -372,16 +420,19 @@ const handleEmailInput = (e: any) => {
           <div
             class="project-card glass-card border border-white/10 rounded-2xl overflow-hidden flex flex-col"
           >
-            <div class="relative h-48 overflow-hidden">
+            <figure class="relative h-48 overflow-hidden m-0">
               <img
                 :src="project.img"
-                :alt="project.title"
+                :alt="`Screenshot of ${project.title} - ${project.desc}`"
+                loading="lazy"
+                decoding="async"
                 class="w-full h-full object-cover project-img"
               />
               <div
                 class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"
               />
-            </div>
+              <figcaption class="sr-only">{{ project.title }}: {{ project.desc }}</figcaption>
+            </figure>
             <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
               <div class="space-y-3">
                 <h3 class="text-lg font-bold">{{ project.title }}</h3>
@@ -419,17 +470,20 @@ const handleEmailInput = (e: any) => {
           class="project-card reveal fade-up glass-card border border-white/10 rounded-2xl overflow-hidden flex flex-col"
           :style="{ transitionDelay: `${i * 100}ms` }"
         >
-          <div class="relative h-52 overflow-hidden">
+          <figure class="relative h-52 overflow-hidden m-0">
             <img
               :src="project.img"
-              :alt="project.title"
+              :alt="`Screenshot of ${project.title} - ${project.desc}`"
+              loading="lazy"
+              decoding="async"
               class="w-full h-full object-cover project-img"
             />
             <div
               class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"
             />
             <div class="project-overlay" />
-          </div>
+            <figcaption class="sr-only">{{ project.title }}: {{ project.desc }}</figcaption>
+          </figure>
           <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
             <div class="space-y-3">
               <h3 class="text-xl font-bold">{{ project.title }}</h3>

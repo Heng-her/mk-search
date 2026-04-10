@@ -34,10 +34,10 @@ function toggleMenu() {
 }
 
 const navLinks = [
-  { key: "about", href: "#about" },
-  { key: "skills", href: "#skills" },
-  { key: "projects", href: "#projects" },
-  { key: "contact", href: "#contact" },
+  { key: "about", to: "/about" },
+  { key: "skills", to: "/#skills" }, // Fragment on home
+  { key: "projects", to: "/projects" },
+  { key: "contact", to: "/contact" },
 ];
 
 const activeSection = ref("about");
@@ -102,15 +102,15 @@ onBeforeUnmount(() => {
         </button>
 
         <div class="hidden md:flex items-center gap-1">
-          <a
+          <router-link
             v-for="link in navLinks"
             :key="link.key"
-            :href="link.href"
+            :to="link.to"
             class="nav-link px-4 py-2 rounded-xl text-sm font-semibold"
             :class="{ 'nav-link-active': activeSection === link.key }"
           >
             {{ t(link.key) }}
-          </a>
+          </router-link>
         </div>
 
         <div class="flex items-center gap-2">
@@ -167,15 +167,15 @@ onBeforeUnmount(() => {
           @click.stop
           class="mobile-menu absolute top-24 left-4 right-4 rounded-3xl p-4 border border-white/10 shadow-2xl"
         >
-          <a
+          <router-link
             v-for="link in navLinks"
             :key="link.key"
-            :href="link.href"
+            :to="link.to"
             class="flex items-center gap-3 px-4 py-4 text-sm font-bold border-b border-white/5"
             @click="toggleMenu"
           >
             {{ t(link.key) }}
-          </a>
+          </router-link>
         </div>
       </div>
     </Transition>

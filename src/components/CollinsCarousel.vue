@@ -12,15 +12,18 @@
         :transition="{ duration: 0.5, easing: 'ease-out' }"
       >
         <div class="glass-card border border-white/10 rounded-2xl overflow-hidden flex flex-col">
-          <!-- Image -->
-          <div class="relative h-48 overflow-hidden">
+          <!-- Semantic Figure for Image SEO -->
+          <figure class="relative h-48 overflow-hidden m-0">
             <img
               :src="project.img"
-              :alt="project.title"
+              :alt="`Screenshot of ${project.title} - ${project.desc}`"
+              loading="lazy"
+              decoding="async"
               class="w-full h-full object-cover"
             />
             <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
-          </div>
+            <figcaption class="sr-only">{{ project.title }}: {{ project.desc }}</figcaption>
+          </figure>
 
           <!-- Content -->
           <div class="p-5 flex-1 flex flex-col justify-between space-y-4">

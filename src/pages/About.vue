@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import *as CollinsCarousel from "../components/CollinsCarousel.vue";
+import CollinsCarousel from "../components/CollinsCarousel.vue";
 import { useProfileData } from "../data/profile";
-// fetch("https://api.ipify.org?format=json")
-//   .then((res) => res.json())
-//   .then((data) => console.log(data.ip));
+import { useHead } from "@vueuse/head";
+
+useHead({
+  title: "About Her Bunheng | Experience & Vision",
+  meta: [
+    {
+      name: "description",
+      content: "Learn more about Her Bunheng, a dedicated developer from Cambodia. Discover my journey, values, and the expertise I bring to every project.",
+    },
+  ],
+});
+
 const { projects } = useProfileData();
 const filteredProjects = projects.value.filter(p => p.link !== undefined);
 </script>

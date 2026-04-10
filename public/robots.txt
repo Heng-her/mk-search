@@ -1,8 +1,6 @@
 User-agent: *
 Allow: /
-
-# Block unnecessary files (optional)
-Disallow: /admin
-Disallow: /login
+Disallow: /dist/
+Disallow: /node_modules/
 
 Sitemap: https://www.mk-search.xyz/sitemap.xml
