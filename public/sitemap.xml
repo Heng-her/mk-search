@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
+  <!-- Home Page -->
   <url>
     <loc>https://www.mk-search.xyz/</loc>
     <lastmod>2026-04-10</lastmod>
@@ -9,9 +10,46 @@
     <image:image>
       <image:loc>https://www.mk-search.xyz/profile.jpg</image:loc>
       <image:title>Her Bunheng - Full Stack Developer Profile</image:title>
+      <image:caption>Professional profile of Her Bunheng, a Full Stack Developer based in Cambodia.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mk-search.xyz/48hr.jpg</image:loc>
+      <image:title>Her Bunheng Portrait - Software Developer</image:title>
+      <image:caption>Portrait of Her Bunheng, specializing in Vue, React, and Mobile App development.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mk-search.xyz/quiz.jpg</image:loc>
+      <image:title>Full Stack Web Application - Quiz App</image:title>
+      <image:caption>A modern full-stack web application built with Vue 3 and Express.js.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mk-search.xyz/mobileapp.jpg</image:loc>
+      <image:title>Mobile App Development with Expo</image:title>
+      <image:caption>Cross-platform mobile application developed using React Native and Supabase.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mk-search.xyz/telegram.jpg</image:loc>
+      <image:title>Telegram Bot Automation Project</image:title>
+      <image:caption>Automated messaging system and business workflow automation using Telegram Bot API.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mk-search.xyz/soft-launch.png</image:loc>
+      <image:title>48hr Soft Launch Project</image:title>
+      <image:caption>Web registration platform for meeting soft launches.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mk-search.xyz/attendance.png</image:loc>
+      <image:title>One Attendance System</image:title>
+      <image:caption>Attendance management system developed for 1Dev company.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mk-search.xyz/bunheng-work.jpg</image:loc>
+      <image:title>Her Bunheng at Work</image:title>
+      <image:caption>Full Stack Developer Her Bunheng working on projects.</image:caption>
     </image:image>
   </url>
 
+  <!-- About Page -->
   <url>
     <loc>https://www.mk-search.xyz/about</loc>
     <lastmod>2026-04-10</lastmod>
