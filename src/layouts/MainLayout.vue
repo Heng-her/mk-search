@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed } from "vue";
+import { useRoute } from "vue-router";
 import { useI18n } from "../composables/useI18n";
+import { countryCode, isLoadingGeo, fetchGeo } from "../composables/useGeo";
+
+const route = useRoute();
 // I18n setup
 const { t, setLocale, currentLocaleLabel, availableLocales } = useI18n();
 const scrollProgress = ref(0);
@@ -67,7 +71,16 @@ function handleScroll() {
   }
 }
 
+const showLayout = computed(() => {
+  if (route.path === '/') {
+    if (isLoadingGeo.value) return false;
+    return countryCode.value === 'KH';
+  }
+  return true;
+});
+
 onMounted(() => {
+  fetchGeo();
   document.addEventListener("click", handleClickOutside);
   window.addEventListener("scroll", handleScroll, { passive: true });
 });
@@ -79,65 +92,42 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div
-    class="bg-[#09090b80] text-slate-100 min-h-screen font-['Space_Grotesk',sans-serif]"
-  >
-    <div class="fixed top-0 left-0 right-0 h-0.5 z-200">
-      <div
-        class="h-full progress-bar transition-all duration-150"
-        :style="{ width: `${scrollProgress}%` }"
-      />
+  <div class="bg-[#09090b80] text-slate-100 min-h-screen font-['Space_Grotesk',sans-serif]">
+    <div class="fixed top-0 left-0 right-0 h-0.5 z-200" v-if="showLayout">
+      <div class="h-full progress-bar transition-all duration-150" :style="{ width: `${scrollProgress}%` }" />
     </div>
 
-    <header class="fixed top-0 left-0 right-0 z-100 px-3 sm:px-6 py-4">
-      <nav
-        class="nav-bar rounded-2xl px-4 sm:px-6 py-3 flex justify-between items-center transition-all"
-        :class="{ 'nav-solid': navSolid }"
-      >
+    <header class="fixed top-0 left-0 right-0 z-100 px-3 sm:px-6 py-4" v-if="showLayout">
+      <nav class="nav-bar rounded-2xl px-4 sm:px-6 py-3 flex justify-between items-center transition-all"
+        :class="{ 'nav-solid': navSolid }">
         <button @click="scrollToTop" class="logo-btn flex items-center gap-2">
           <i class="fa-solid fa-terminal text-purple-400" />
-          <span class="font-black text-base sm:text-lg"
-            >HENG<span class="text-purple-400">.</span>CRYPTEN</span
-          >
+          <span class="font-black text-base sm:text-lg">HENG<span class="text-purple-400">.</span>CRYPTEN</span>
         </button>
 
         <div class="hidden md:flex items-center gap-1">
-          <router-link
-            v-for="link in navLinks"
-            :key="link.key"
-            :to="link.to"
+          <router-link v-for="link in navLinks" :key="link.key" :to="link.to"
             class="nav-link px-4 py-2 rounded-xl text-sm font-semibold"
-            :class="{ 'nav-link-active': activeSection === link.key }"
-          >
+            :class="{ 'nav-link-active': activeSection === link.key }">
             {{ t(link.key) }}
           </router-link>
         </div>
 
         <div class="flex items-center gap-2">
           <div ref="langRef" class="relative">
-            <button
-              @click="toggleLang"
-              class="ctrl-btn flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold"
-            >
+            <button @click="toggleLang"
+              class="ctrl-btn flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold">
               <i class="fa-solid fa-globe text-purple-400" />
               <span>{{ currentLocaleLabel }}</span>
-              <i
-                class="fa-solid fa-chevron-down text-[9px] transition-transform"
-                :class="{ 'rotate-180': isLangOpen }"
-              />
+              <i class="fa-solid fa-chevron-down text-[9px] transition-transform"
+                :class="{ 'rotate-180': isLangOpen }" />
             </button>
 
             <Transition name="dropdown">
-              <div
-                v-if="isLangOpen"
-                class="lang-dropdown absolute right-0 top-full mt-2 w-44 rounded-2xl shadow-2xl border z-110 overflow-hidden"
-              >
-                <button
-                  v-for="locale in availableLocales"
-                  :key="locale.code"
-                  @click="changeLang(locale.code)"
-                  class="lang-option flex items-center gap-3 w-full px-4 py-3 text-xs font-medium hover:bg-white/5 transition-colors"
-                >
+              <div v-if="isLangOpen"
+                class="lang-dropdown absolute right-0 top-full mt-2 w-44 rounded-2xl shadow-2xl border z-110 overflow-hidden">
+                <button v-for="locale in availableLocales" :key="locale.code" @click="changeLang(locale.code)"
+                  class="lang-option flex items-center gap-3 w-full px-4 py-3 text-xs font-medium hover:bg-white/5 transition-colors">
                   <span class="text-base">{{ locale.flag }}</span>
                   <span>{{ t(locale.nameKey) }}</span>
                 </button>
@@ -145,10 +135,7 @@ onBeforeUnmount(() => {
             </Transition>
           </div>
 
-          <button
-            @click="toggleMenu"
-            class="md:hidden ctrl-btn w-10 h-10 flex items-center justify-center rounded-xl"
-          >
+          <button @click="toggleMenu" class="md:hidden ctrl-btn w-10 h-10 flex items-center justify-center rounded-xl">
             <div class="hamburger" :class="{ open: isMenuOpen }">
               <span /><span /><span />
             </div>
@@ -158,29 +145,19 @@ onBeforeUnmount(() => {
     </header>
 
     <Transition name="mobile-overlay">
-      <div
-        v-if="isMenuOpen"
-        class="md:hidden fixed inset-0 z-90 bg-black/60 backdrop-blur-sm"
-        @click="toggleMenu"
-      >
-        <div
-          @click.stop
-          class="mobile-menu absolute top-24 left-4 right-4 rounded-3xl p-4 border border-white/10 shadow-2xl"
-        >
-          <router-link
-            v-for="link in navLinks"
-            :key="link.key"
-            :to="link.to"
-            class="flex items-center gap-3 px-4 py-4 text-sm font-bold border-b border-white/5"
-            @click="toggleMenu"
-          >
+      <div v-if="isMenuOpen && showLayout" class="md:hidden fixed inset-0 z-90 bg-black/60 backdrop-blur-sm"
+        @click="toggleMenu">
+        <div @click.stop
+          class="mobile-menu absolute top-24 left-4 right-4 rounded-3xl p-4 border border-white/10 shadow-2xl">
+          <router-link v-for="link in navLinks" :key="link.key" :to="link.to"
+            class="flex items-center gap-3 px-4 py-4 text-sm font-bold border-b border-white/5" @click="toggleMenu">
             {{ t(link.key) }}
           </router-link>
         </div>
       </div>
     </Transition>
 
-    <main class="pt-5 lg:pt-10 pb-14 px-4 max-w-6xl mx-auto">
+    <main :class="showLayout ? 'pt-5 lg:pt-10 pb-14 px-4 max-w-6xl mx-auto' : ''">
       <router-view />
     </main>
   </div>
@@ -189,7 +166,8 @@ onBeforeUnmount(() => {
 <style scoped>
 /* Key fixes for mobile visibility */
 .lang-dropdown {
-  background: #161618; /* Solid background for mobile legibility */
+  background: #161618;
+  /* Solid background for mobile legibility */
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -201,9 +179,11 @@ onBeforeUnmount(() => {
 .z-200 {
   z-index: 200;
 }
+
 .z-100 {
   z-index: 100;
 }
+
 .z-50 {
   z-index: 50;
 }
@@ -212,6 +192,7 @@ onBeforeUnmount(() => {
 .dropdown-leave-active {
   transition: all 0.2s ease-out;
 }
+
 .dropdown-enter-from,
 .dropdown-leave-to {
   opacity: 0;
@@ -232,8 +213,10 @@ onBeforeUnmount(() => {
 .hamburger span {
   display: block;
   width: 100%;
-  height: 2px; /* Thickness of the line */
-  background-color: white; /* Color of the icon */
+  height: 2px;
+  /* Thickness of the line */
+  background-color: white;
+  /* Color of the icon */
   border-radius: 99px;
   transition: all 0.3s ease-in-out;
   transform-origin: center;
@@ -246,7 +229,8 @@ onBeforeUnmount(() => {
 
 .hamburger.open span:nth-child(2) {
   opacity: 0;
-  transform: translateX(-10px); /* Optional: slide out effect */
+  transform: translateX(-10px);
+  /* Optional: slide out effect */
 }
 
 .hamburger.open span:nth-child(3) {
