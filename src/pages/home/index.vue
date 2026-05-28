@@ -8,6 +8,7 @@ import { Pagination } from "swiper/modules";
 import { useResponsive } from "../../composables/responsive";
 import { useI18n } from "../../composables/useI18n";
 import { useProfileData } from "../../data/profile";
+// import CollinsCarousel from "../../components/CollinsCarousel.vue";
 // @ts-ignore
 import ResponsePopup from "@/components/ResponsePopup.vue";
 // @ts-ignore
@@ -15,6 +16,8 @@ import ImagePopup from "@/components/ImagePopup.vue";
 const modules = [Pagination];
 const { t } = useI18n();
 const { skills, projects, experience, contactInfo, infor } = useProfileData();
+// const { projects: allProjects } = useProfileData();
+// const filteredProjects = allProjects.value.filter(p => p.link !== undefined);
 import { useHead } from "@vueuse/head";
 const form = ref({
   name: "",
@@ -567,6 +570,10 @@ const handleEmailInput = (e: any) => {
     confirm-text="Got it!" @confirm="console.log('Modal confirmed')" />
 
   <ImagePopup v-model="showImageModal" image-src="/bunheng-work.jpg" title="Think Before choosing a developer Skill." />
+
+  <!-- <section class="reveal fade-up">
+    <CollinsCarousel :projects="filteredProjects" />
+  </section> -->
 </template>
 
 <style scoped>

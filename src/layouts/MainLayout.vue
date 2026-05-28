@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed } from "vue";
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 import { useI18n } from "../composables/useI18n";
-import { countryCode, isLoadingGeo, fetchGeo } from "../composables/useGeo";
 
-const route = useRoute();
+// const route = useRoute();
 // I18n setup
 const { t, setLocale, currentLocaleLabel, availableLocales } = useI18n();
 const scrollProgress = ref(0);
@@ -38,7 +37,7 @@ function toggleMenu() {
 }
 
 const navLinks = [
-  { key: "about", to: "/about" },
+  { key: "about", to: "/#about" },
   { key: "skills", to: "/#skills" }, // Fragment on home
   { key: "projects", to: "/projects" },
   { key: "contact", to: "/contact" },
@@ -71,16 +70,7 @@ function handleScroll() {
   }
 }
 
-const showLayout = computed(() => {
-  if (route.path === '/') {
-    if (isLoadingGeo.value) return false;
-    return countryCode.value === 'KH';
-  }
-  return true;
-});
-
 onMounted(() => {
-  fetchGeo();
   document.addEventListener("click", handleClickOutside);
   window.addEventListener("scroll", handleScroll, { passive: true });
 });
@@ -93,11 +83,11 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="bg-[#09090b80] text-slate-100 min-h-screen font-['Space_Grotesk',sans-serif]">
-    <div class="fixed top-0 left-0 right-0 h-0.5 z-200" v-if="showLayout">
+    <div class="fixed top-0 left-0 right-0 h-0.5 z-200">
       <div class="h-full progress-bar transition-all duration-150" :style="{ width: `${scrollProgress}%` }" />
     </div>
 
-    <header class="fixed top-0 left-0 right-0 z-100 px-3 sm:px-6 py-4" v-if="showLayout">
+    <header class="fixed top-0 left-0 right-0 z-100 px-3 sm:px-6 py-4">
       <nav class="nav-bar rounded-2xl px-4 sm:px-6 py-3 flex justify-between items-center transition-all"
         :class="{ 'nav-solid': navSolid }">
         <button @click="scrollToTop" class="logo-btn flex items-center gap-2">
@@ -145,7 +135,7 @@ onBeforeUnmount(() => {
     </header>
 
     <Transition name="mobile-overlay">
-      <div v-if="isMenuOpen && showLayout" class="md:hidden fixed inset-0 z-90 bg-black/60 backdrop-blur-sm"
+      <div v-if="isMenuOpen" class="md:hidden fixed inset-0 z-90 bg-black/60 backdrop-blur-sm"
         @click="toggleMenu">
         <div @click.stop
           class="mobile-menu absolute top-24 left-4 right-4 rounded-3xl p-4 border border-white/10 shadow-2xl">
@@ -157,7 +147,7 @@ onBeforeUnmount(() => {
       </div>
     </Transition>
 
-    <main :class="showLayout ? 'pt-5 lg:pt-10 pb-14 px-4 max-w-6xl mx-auto' : ''">
+    <main class="pt-5 lg:pt-10 pb-14 px-4 max-w-6xl mx-auto">
       <router-view />
     </main>
   </div>

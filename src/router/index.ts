@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainLayout from "../layouts/MainLayout.vue";
 import Home from "../pages/Home.vue";
-import About from "../pages/About.vue";
 import NotFound from "../pages/NotFound.vue";
 import { trackUser } from "../services/tracker.service";
 
@@ -13,7 +12,6 @@ const router = createRouter({
       component: MainLayout,
       children: [
         { path: "", name: "home", component: Home },
-        { path: "about", name: "about", component: About },
         // We can point these to Home or specific components
         { path: "projects", name: "projects", component: Home },
         { path: "contact", name: "contact", component: Home },
@@ -34,8 +32,7 @@ const router = createRouter({
     // If navigating to a route name that matches a section ID on Home
     if (
       to.name === "projects" ||
-      to.name === "contact" ||
-      to.name === "about"
+      to.name === "contact"
     ) {
       // Only scroll if we are already on the home page
       const element = document.getElementById(to.name as string);
