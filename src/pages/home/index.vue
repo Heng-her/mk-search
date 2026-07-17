@@ -65,7 +65,7 @@ useHead({
         "sameAs": [
           "https://www.github.com/Heng-her",
           "https://www.linkedin.com/in/bun-heng-107340361",
-          "https://www.instagram.com/caterfly.buy"
+          "https://www.instagram.com/brodara114/"
         ]
       })
     },
@@ -500,7 +500,7 @@ const handleEmailInput = (e: any) => {
             },
             {
               icon: 'fa-brands fa-instagram',
-              href: 'https://www.instagram.com/caterfly.buy',
+              href: 'https://www.instagram.com/brodara114/',
             },
           ]" :key="social.icon" :href="social.href" class="social-btn">
             <i :class="social.icon" />
