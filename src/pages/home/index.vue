@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import { useResponsive } from "../../composables/responsive";
+// import { useResponsive } from "../../composables/responsive";
 import { useI18n } from "../../composables/useI18n";
 import { useProfileData } from "../../data/profile";
 // import CollinsCarousel from "../../components/CollinsCarousel.vue";
@@ -93,7 +93,7 @@ useHead({
 });
 import { program, sendToTelegram } from "../../services/telegram.service";
 const showModal = ref(false);
-const showImageModal = ref(false);
+// const showImageModal = ref(false);
 const modalType = ref<"success" | "error">("success");
 const modalTitle = ref("");
 const modalMessage = ref("");
@@ -148,7 +148,7 @@ const hasShownModal = ref(false);
 const openLink = (url: string | URL | undefined) => {
   window.open(url, "_blank");
 };
-const { isMobile } = useResponsive();
+// const { isMobile } = useResponsive();
 const { currentLocale } = useI18n();
 
 // 🔹 Intersection Observer logic
@@ -179,7 +179,7 @@ onMounted(() => {
   const bottomObserver = new IntersectionObserver(
     (entries) => {
       if (entries[0]?.isIntersecting && !hasShownModal.value) {
-        showImageModal.value = true;
+        // showImageModal.value = true;
         hasShownModal.value = true;
         bottomObserver.disconnect();
       }
@@ -344,7 +344,7 @@ const handleEmailInput = (e: any) => {
     </section>
 
     <!-- ──────────────── PROJECTS ──────────────── -->
-    <section id="projects" class="space-y-12">
+    <section id="projects" class="space-y-12 w-full max-w-full overflow-hidden">
       <div class="flex justify-between items-end reveal fade-up">
         <div class="space-y-2">
           <h2 class="text-3xl sm:text-4xl font-black">
@@ -356,20 +356,26 @@ const handleEmailInput = (e: any) => {
         </div>
       </div>
 
-      <!-- Mobile: Swiper -->
-      <Swiper v-if="isMobile" :modules="modules" :slides-per-view="1.2" :space-between="20"
-        :pagination="{ clickable: true }">
-        <SwiperSlide v-for="(project, i) in projects" :key="i">
-          <div class="project-card glass-card border border-white/10 rounded-2xl overflow-hidden flex flex-col">
-            <figure class="relative h-48 overflow-hidden m-0">
+      <!-- Projects Swiper Flex Slider (Responsive for Mobile & Desktop) -->
+      <Swiper :modules="modules" :space-between="24" :pagination="{ clickable: true }" :breakpoints="{
+        320: { slidesPerView: 1.15, spaceBetween: 16 },
+        640: { slidesPerView: 1.6, spaceBetween: 20 },
+        1024: { slidesPerView: 2.2, spaceBetween: 24 }
+      }" class="projects-swiper pb-12">
+        <SwiperSlide v-for="(project, i) in projects" :key="i" class="h-auto flex">
+          <div
+            class="project-card glass-card border border-white/10 rounded-2xl overflow-hidden flex flex-col w-full h-full reveal fade-up"
+            :style="{ transitionDelay: `${i * 100}ms` }">
+            <figure class="relative h-52 overflow-hidden m-0">
               <img :src="project.img" :alt="`Screenshot of ${project.title} - ${project.desc}`" loading="lazy"
                 decoding="async" class="w-full h-full object-cover project-img" />
               <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
+              <div class="project-overlay" />
               <figcaption class="sr-only">{{ project.title }}: {{ project.desc }}</figcaption>
             </figure>
-            <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
               <div class="space-y-3">
-                <h3 class="text-lg font-bold">{{ project.title }}</h3>
+                <h3 class="text-xl font-bold">{{ project.title }}</h3>
                 <p class="text-slate-500 text-sm line-clamp-2">
                   {{ project.desc }}
                 </p>
@@ -380,11 +386,11 @@ const handleEmailInput = (e: any) => {
                 </div>
               </div>
               <div class="flex gap-3 pt-2">
-                <button @click="openLink(project.link)" class="flex-1 btn-primary text-xs py-2"
+                <button @click="openLink(project.link)" class="flex-1 btn-primary py-2 text-xs font-bold"
                   :disabled="project.disabled">
                   {{ t("home.projects.demo") }}
                 </button>
-                <button class="flex-1 btn-ghost text-xs">
+                <button class="flex-1 btn-ghost py-2 text-xs font-bold">
                   {{ t("home.projects.github") }}
                 </button>
               </div>
@@ -392,43 +398,6 @@ const handleEmailInput = (e: any) => {
           </div>
         </SwiperSlide>
       </Swiper>
-
-      <!-- Desktop: Grid -->
-      <div v-if="!isMobile" class="md:grid md:grid-cols-2 gap-8">
-        <div v-for="(project, i) in projects" :key="i"
-          class="project-card reveal fade-up glass-card border border-white/10 rounded-2xl overflow-hidden flex flex-col"
-          :style="{ transitionDelay: `${i * 100}ms` }">
-          <figure class="relative h-52 overflow-hidden m-0">
-            <img :src="project.img" :alt="`Screenshot of ${project.title} - ${project.desc}`" loading="lazy"
-              decoding="async" class="w-full h-full object-cover project-img" />
-            <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
-            <div class="project-overlay" />
-            <figcaption class="sr-only">{{ project.title }}: {{ project.desc }}</figcaption>
-          </figure>
-          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-            <div class="space-y-3">
-              <h3 class="text-xl font-bold">{{ project.title }}</h3>
-              <p class="text-slate-500 text-sm line-clamp-2">
-                {{ project.desc }}
-              </p>
-              <div class="flex flex-wrap gap-2">
-                <span v-for="tag in project.tags" :key="tag" class="tag">{{
-                  tag
-                }}</span>
-              </div>
-            </div>
-            <div class="flex gap-3 pt-2">
-              <button @click="openLink(project.link)" class="flex-1 btn-primary py-2 text-xs font-bold"
-                :disabled="project.disabled">
-                {{ t("home.projects.demo") }}
-              </button>
-              <button class="flex-1 btn-ghost py-2 text-xs font-bold">
-                {{ t("home.projects.github") }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- ──────────────── EXPERIENCE ──────────────── -->
@@ -569,7 +538,7 @@ const handleEmailInput = (e: any) => {
   <ResponsePopup v-model="showModal" :type="modalType" :title="modalTitle" :message="modalMessage"
     confirm-text="Got it!" @confirm="console.log('Modal confirmed')" />
 
-  <ImagePopup v-model="showImageModal" image-src="/bunheng-work.jpg" title="Think Before choosing a developer Skill." />
+  <!-- <ImagePopup v-model="showImageModal" image-src="/bunheng-work.jpg" title="Think Before choosing a developer Skill." /> -->
 
   <!-- <section class="reveal fade-up">
     <CollinsCarousel :projects="filteredProjects" />
@@ -1206,5 +1175,43 @@ const handleEmailInput = (e: any) => {
   animation:
     typing 3.5s steps(40, end) forwards,
     blink 0.75s step-end infinite;
+}
+
+/* ═══════════════════════════════════════
+   SWIPER FLEX CAROUSEL STYLES
+═══════════════════════════════════════ */
+:deep(.projects-swiper) {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+:deep(.projects-swiper .swiper-wrapper) {
+  display: flex;
+  align-items: stretch;
+}
+
+:deep(.projects-swiper .swiper-slide) {
+  height: auto;
+  display: flex;
+}
+
+:deep(.swiper-pagination) {
+  bottom: 0 !important;
+}
+
+:deep(.swiper-pagination-bullet) {
+  background: rgba(255, 255, 255, 0.25);
+  opacity: 0.8;
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:deep(.swiper-pagination-bullet-active) {
+  background: #8c25f4;
+  width: 28px;
+  border-radius: 9999px;
+  opacity: 1;
 }
 </style>

@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="bg-[#09090b80] text-slate-100 min-h-screen font-['Space_Grotesk',sans-serif]">
+  <div class="bg-[#09090b80] text-slate-100 min-h-screen font-['Space_Grotesk',sans-serif] overflow-x-hidden w-full">
     <div class="fixed top-0 left-0 right-0 h-0.5 z-200">
       <div class="h-full progress-bar transition-all duration-150" :style="{ width: `${scrollProgress}%` }" />
     </div>
@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
       </div>
     </Transition>
 
-    <main class="pt-5 lg:pt-10 pb-14 px-4 max-w-6xl mx-auto">
+    <main class="pt-5 lg:pt-10 pb-14 px-4 max-w-6xl mx-auto w-full overflow-hidden">
       <router-view />
     </main>
   </div>

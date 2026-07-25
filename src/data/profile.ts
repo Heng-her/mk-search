@@ -1,12 +1,7 @@
 import { computed } from "vue";
 import { useI18n } from "../composables/useI18n";
 import { profileData } from "./i18n-profile";
-import type {
-  ContactInfo,
-  Experience,
-  Project,
-  Skill,
-} from "../types/profile";
+import type { ContactInfo, Experience, Project, Skill } from "../types/profile";
 
 // Original static data that doesn't need translation
 const staticData = {
@@ -37,6 +32,38 @@ const staticData = {
   ],
   projects: [
     {
+      tags: [
+        "Nuxt",
+        "Tailwindcss",
+        "Responsive Web",
+        "SEO",
+        "Vercel",
+        "Cloudflare",
+      ],
+      img: "/homestay.png",
+      disabled: false,
+      link: "https://angkor-homestay.com",
+    },
+    {
+      tags: ["Vue 3", "Telegram Bot API", "Express", "primevue"],
+      img: "/attendance.png",
+      disabled: false,
+      link: "https://att-admin-stage.1dev.biz",
+    },
+    {
+      tags: [
+        "Vue",
+        "primevue",
+        "Responsive Web",
+        "Cloudflare",
+        "Cloudflare D1",
+        "Cloudflare R2",
+      ],
+      img: "/school.png",
+      disabled: false,
+      link: "https://school-billing.system-codex.workers.dev",
+    },
+    {
       tags: ["Vue 3", "Express", "PostgreSQL", "Prisma", "Capacitor"],
       img: "/quiz.jpg",
       disabled: true,
@@ -50,18 +77,13 @@ const staticData = {
     {
       tags: ["Node.js", "Telegram Bot API", "Express"],
       img: "/telegram.jpg",
+      disabled: true,
     },
     {
       tags: ["React", "Telegram Bot API", "Mongodb"],
       img: "/soft-launch.png",
       disabled: false,
-      link: "https://48hr-soft-launch.vercel.app"
-    },
-    {
-      tags: ["Vue 3", "Telegram Bot API", "Express", "primevue"],
-      img: "/attendance.png",
-      disabled: false,
-      link: "https://att-admin-stage.1dev.biz"
+      link: "https://48hr-soft-launch.vercel.app",
     },
   ],
 };
@@ -77,9 +99,9 @@ export function useProfileData() {
 
   const projects = computed<Project[]>(() =>
     (data.value?.projects || []).map((p, i) => ({
+      ...staticData.projects[i],
       ...p,
-      ...staticData.projects[i], // Merge non-translatable fields
-    }))
+    })),
   );
 
   const experience = computed<Experience[]>(() => data.value?.experience || []);
@@ -95,7 +117,7 @@ export function useProfileData() {
         icon: merged.icon || "",
         value: merged.value || "",
       };
-    })
+    }),
   );
 
   const infor = computed(() => ({
@@ -111,4 +133,3 @@ export function useProfileData() {
     infor,
   };
 }
-

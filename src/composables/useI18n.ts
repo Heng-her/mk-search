@@ -24,7 +24,7 @@ const messages: Messages = {
         name: "Heng",
         role: "Junior Full Stack Developer",
         stack: "Vue • React • Expo • Express • Supabase",
-        bio: "IT student passionate about building modern web and mobile applications. Currently upskilling in React (TSX), Next.js, Expo, Telegram Bot development, and backend systems with Express & PostgreSQL.",
+        bio: "IT student passionate about building modern web and mobile applications. Currently upskilling in React, Next.js, Expo, Telegram Bot development, and backend systems with Express & PostgreSQL.",
         viewProjects: "View Projects",
         contactMe: "Contact Me",
       },
@@ -181,7 +181,8 @@ const messages: Messages = {
       },
       contact: {
         title: "保持联系",
-        subtitle: "我目前对新的机会和合作持开放态度。让我们谈谈你的下一个好主意吧！",
+        subtitle:
+          "我目前对新的机会和合作持开放态度。让我们谈谈你的下一个好主意吧！",
         form: {
           name: "姓名",
           email: "Telegram",
@@ -255,7 +256,7 @@ const messages: Messages = {
           message: "Tin nhắn",
           send: "Gửi tin nhắn",
           subjectOptions: {
-            a:"Chọn môn học",
+            a: "Chọn môn học",
             collab: "Hợp tác dự án",
             job: "Cơ hội việc làm",
             general: "Yêu cầu chung",
