@@ -13,6 +13,8 @@ const router = createRouter({
       children: [
         { path: "", name: "home", component: Home },
         // We can point these to Home or specific components
+        { path: "about", name: "about", component: Home },
+        { path: "skills", name: "skills", component: Home },
         { path: "projects", name: "projects", component: Home },
         { path: "contact", name: "contact", component: Home },
         { path: ":pathMatch(.*)*", name: "not-found", component: NotFound },
@@ -31,6 +33,8 @@ const router = createRouter({
 
     // If navigating to a route name that matches a section ID on Home
     if (
+      to.name === "about" ||
+      to.name === "skills" ||
       to.name === "projects" ||
       to.name === "contact"
     ) {

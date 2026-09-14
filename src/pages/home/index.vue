@@ -43,7 +43,7 @@ useHead({
     },
     {
       property: "og:image",
-      content: "https://www.mk-search.xyz/profile.jpg",
+      content: "https://hengcrypten.online/profile.jpg",
     },
     {
       property: "og:type",
@@ -57,11 +57,11 @@ useHead({
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Her Bunheng",
-        "url": "https://www.mk-search.xyz",
+        "url": "https://hengcrypten.online",
         "jobTitle": "Full Stack Developer",
         "knowsAbout": ["Vue.js", "React", "TypeScript", "Node.js", "Mobile App Development"],
         "description": "Full Stack Developer based in Siem Reap, Cambodia specializing in modern web and mobile applications.",
-        "image": "https://www.mk-search.xyz/profile.jpg",
+        "image": "https://hengcrypten.online/profile.jpg",
         "sameAs": [
           "https://www.github.com/Heng-her",
           "https://www.linkedin.com/in/bun-heng-107340361",
@@ -83,8 +83,8 @@ useHead({
             "applicationCategory": "WebApplication",
             "operatingSystem": "Web",
             "description": project.desc,
-            "image": `https://www.mk-search.xyz${project.img}`,
-            "url": project.link || "https://www.mk-search.xyz"
+            "image": `https://hengcrypten.online${project.img}`,
+            "url": project.link || "https://hengcrypten.online"
           }
         }))
       })

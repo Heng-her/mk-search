@@ -37,8 +37,8 @@ function toggleMenu() {
 }
 
 const navLinks = [
-  { key: "about", to: "/#about" },
-  { key: "skills", to: "/#skills" }, // Fragment on home
+  { key: "about", to: "/about" },
+  { key: "skills", to: "/skills" },
   { key: "projects", to: "/projects" },
   { key: "contact", to: "/contact" },
 ];

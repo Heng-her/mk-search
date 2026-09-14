@@ -3,47 +3,47 @@
 
   <!-- Home Page -->
   <url>
-    <loc>https://www.mk-search.xyz/</loc>
+    <loc>https://hengcrypten.online/</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.mk-search.xyz/profile.jpg</image:loc>
+      <image:loc>https://hengcrypten.online/profile.jpg</image:loc>
       <image:title>Her Bunheng - Full Stack Developer Profile</image:title>
       <image:caption>Professional profile of Her Bunheng, a Full Stack Developer based in Cambodia.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.mk-search.xyz/48hr.jpg</image:loc>
+      <image:loc>https://hengcrypten.online/48hr.jpg</image:loc>
       <image:title>Her Bunheng Portrait - Software Developer</image:title>
       <image:caption>Portrait of Her Bunheng, specializing in Vue, React, and Mobile App development.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.mk-search.xyz/quiz.jpg</image:loc>
+      <image:loc>https://hengcrypten.online/quiz.jpg</image:loc>
       <image:title>Full Stack Web Application - Quiz App</image:title>
       <image:caption>A modern full-stack web application built with Vue 3 and Express.js.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.mk-search.xyz/mobileapp.jpg</image:loc>
+      <image:loc>https://hengcrypten.online/mobileapp.jpg</image:loc>
       <image:title>Mobile App Development with Expo</image:title>
       <image:caption>Cross-platform mobile application developed using React Native and Supabase.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.mk-search.xyz/telegram.jpg</image:loc>
+      <image:loc>https://hengcrypten.online/telegram.jpg</image:loc>
       <image:title>Telegram Bot Automation Project</image:title>
       <image:caption>Automated messaging system and business workflow automation using Telegram Bot API.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.mk-search.xyz/soft-launch.png</image:loc>
+      <image:loc>https://hengcrypten.online/soft-launch.png</image:loc>
       <image:title>48hr Soft Launch Project</image:title>
       <image:caption>Web registration platform for meeting soft launches.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.mk-search.xyz/attendance.png</image:loc>
+      <image:loc>https://hengcrypten.online/attendance.png</image:loc>
       <image:title>One Attendance System</image:title>
       <image:caption>Attendance management system developed for 1Dev company.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.mk-search.xyz/bunheng-work.jpg</image:loc>
+      <image:loc>https://hengcrypten.online/bunheng-work.jpg</image:loc>
       <image:title>Her Bunheng at Work</image:title>
       <image:caption>Full Stack Developer Her Bunheng working on projects.</image:caption>
     </image:image>
@@ -51,7 +51,31 @@
 
   <!-- About Page -->
   <url>
-    <loc>https://www.mk-search.xyz/about</loc>
+    <loc>https://hengcrypten.online/about</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Skills Page -->
+  <url>
+    <loc>https://hengcrypten.online/skills</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Projects Page -->
+  <url>
+    <loc>https://hengcrypten.online/projects</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://hengcrypten.online/contact</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
